@@ -10,7 +10,6 @@ const ProductsList = () => {
     const data = await response.json();
     setList(data);
   }
-  //   fetchData();
 
   useEffect(() => {
     fetchData();
