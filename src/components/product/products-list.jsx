@@ -14,8 +14,7 @@ const ProductsList = () => {
   useEffect(() => {
     fetchData();
   }, [count]);
-  //  when component mounted => setup fn invoke
-  //  when
+
   const productCardList = list.map((product, index) => {
     return <ProductCard productData={product} key={index} />;
   });
