@@ -1,6 +1,19 @@
-import { NavLink, useLocation } from "react-router";
+import { NavLink } from "react-router";
+import useBasket from "../../store/basket";
 
 const Header = () => {
+  const { items } = useBasket();
+
+  // const calcTotalQuantity = () => {
+  //   let total = 0;
+  //   items.forEach((element) => {
+  //     total += element.quantity;
+  //   });
+  //   return total;
+  // };
+  const calcTotalQuantity = () => {
+    return items.reduce((acc, cur) => acc + cur.quantity, 0);
+  };
   return (
     <div className="flex justify-between p-3 bg-white">
       <NavLink
@@ -18,6 +31,9 @@ const Header = () => {
         }
       >
         Basket
+        <span className="bg-black p-2 text-white mx-2 rounded-lg">
+          {calcTotalQuantity()}
+        </span>
       </NavLink>
     </div>
   );

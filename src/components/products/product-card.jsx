@@ -3,7 +3,11 @@ import useBasket from "../../store/basket";
 
 const ProductCard = ({ data }) => {
   const { actions, items } = useBasket();
-  console.log("  items : ", items);
+
+  const handleAddToBasket = () => {
+    actions.addToBasket(data);
+    // api call
+  };
   return (
     <div
       className="flex flex-col gap-3 bg-white my-3
@@ -15,7 +19,7 @@ const ProductCard = ({ data }) => {
       <h3>{data.title}</h3>
       <p>price: {data.price}</p>
       <button
-        onClick={() => actions.addToBasket(data)}
+        onClick={handleAddToBasket}
         className="border w-fit border-green-500 text-green-600 p-2 rounded-lg cursor-pointer"
       >
         add to basket
