@@ -1,8 +1,10 @@
 import { NavLink } from "react-router";
 import useBasket from "../../store/basket";
-
+import UserContext from "../../context/user-context";
+import { useContext } from "react";
 const Header = () => {
   const { items } = useBasket();
+  const { user } = useContext(UserContext);
 
   // const calcTotalQuantity = () => {
   //   let total = 0;
@@ -16,6 +18,7 @@ const Header = () => {
   };
   return (
     <div className="flex justify-between p-3 bg-white">
+      <h3>welcome {user.name}</h3>
       <NavLink
         to={"/"}
         className={({ isActive, isPending }) =>
@@ -23,6 +26,14 @@ const Header = () => {
         }
       >
         Home
+      </NavLink>
+      <NavLink
+        to={"/perf"}
+        className={({ isActive, isPending }) =>
+          isPending ? "text-gray-800" : isActive ? "text-blue-600" : ""
+        }
+      >
+        Performance
       </NavLink>
       <NavLink
         to={"/basket"}

@@ -1,28 +1,24 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import ProductCard from "./product-card";
-import useProducts from "../../store/products";
+import { getProductList } from "../../services/product-api";
 
 const ProductList = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { actions, productList } = useProducts();
-  const fetchData = async () => {
-    setIsLoading(true);
-
-    const response = await fetch("https://fakestoreapi.com/products");
-    const data = await response.json();
-    actions.setList(data);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    productList.length < 1 && fetchData();
-  }, []);
-
+  const {
+    data: productList,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["product-list"],
+    queryFn: getProductList,
+    retryDelay: 1300,
+    staleTime: 0.5 * 60 * 1000,
+  });
   return (
     <div>
       {isLoading
         ? "loading data ..."
+        : isError
+        ? "error"
         : productList.map((product) => {
             return <ProductCard data={product} key={product.id} />;
           })}
